@@ -26,6 +26,15 @@ obj/
 TestResults/
 logs/
 
+# Visual Studio 2015 cache/options directory 
+.vs/
+
+# DNX 
+project.lock.json 
+project.fragment.lock.json 
+artifacts/ 
+
+
 # Web publish log #
 ###################
 *.Publish.xml
