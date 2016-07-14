@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+#if NET451
 using System.Configuration;
+#elif NETSTANDARD
+using Microsoft.Extensions.Configuration.Xml;
+#endif
 using System.Linq;
 
 namespace SharpRepository.Repository.Configuration

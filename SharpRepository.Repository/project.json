@@ -16,6 +16,9 @@
       "dependencies": {
         "Microsoft.Extensions.Caching.Abstractions": "1.0.0",
         "Microsoft.Extensions.Caching.Memory": "1.0.0"
+      },
+      "buildOptions": {
+        "define": ["NET451"]
       }
     },
     "netstandard1.3": {
@@ -23,8 +26,13 @@
       "dependencies": {
         "Microsoft.Extensions.Caching.Abstractions": "1.0.0",
         "Microsoft.Extensions.Caching.Memory": "1.0.0",
+        "Microsoft.Extensions.Configuration": "1.0.0",
+        "Microsoft.Extensions.Configuration.Xml": "1.0.0",
         "System.Reflection": "4.1.0",
         "System.Security.Cryptography.Algorithms": "4.2.0"
+      },
+      "buildOptions": {
+        "define": [ "NETSTANDARD" ] 
       }
     }
   }
