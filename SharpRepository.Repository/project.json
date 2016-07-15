@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
 
   "dependencies": {
@@ -29,7 +29,9 @@
         "Microsoft.Extensions.Configuration": "1.0.0",
         "Microsoft.Extensions.Configuration.Xml": "1.0.0",
         "System.Reflection": "4.1.0",
-        "System.Security.Cryptography.Algorithms": "4.2.0"
+        "System.Security.Cryptography.Algorithms": "4.2.0",
+        "System.Reflection.Extensions": "4.0.1",
+        "System.Runtime": "4.1.0"
       },
       "buildOptions": {
         "define": [ "NETSTANDARD" ] 
