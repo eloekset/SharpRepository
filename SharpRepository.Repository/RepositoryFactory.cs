@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using SharpRepository.Repository.Configuration;
 using SharpRepository.Repository.Helpers;
+using Microsoft.Extensions.Options;
 
 namespace SharpRepository.Repository
 {
@@ -15,36 +16,67 @@ namespace SharpRepository.Repository
     {
         private const string DefaultConfigSection = "sharpRepository";
 
+#if NET451
         public static IRepository<T, int> GetInstance<T>(string repositoryName = null) where T : class, new()
         {
             return GetInstance<T, int>(repositoryName);
         }
+#elif NETSTANDARD
+        public static IRepository<T, int> GetInstance<T>(IOptions<SharpRepositoryConfiguration> configuration, string repositoryName = null) where T : class, new()
+        {
+            return GetInstance<T, int>(configuration.Value, repositoryName);
+        }
+#endif
 
+#if NET451
         public static IRepository<T, int> GetInstance<T>(string configSection, string repositoryName) where T : class, new()
         {
             return GetInstance<T, int>(configSection, repositoryName);
         }
+#endif
 
         public static IRepository<T, int> GetInstance<T>(ISharpRepositoryConfiguration configuration, string repositoryName=null) where T : class, new()
         {
             return GetInstance<T, int>(configuration, repositoryName);
         }
 
+#if NET451
         public static IRepository<T, TKey> GetInstance<T, TKey>(string repositoryName = null) where T : class, new()
         {
             return GetInstance<T, TKey>(DefaultConfigSection, repositoryName);
         }
+#elif NETSTANDARD
+        public static IRepository<T, TKey> GetInstance<T, TKey>(IOptions<SharpRepositoryConfiguration> configuration, string repositoryName = null) where T : class, new()
+        {
+            return GetInstance<T, TKey>(configuration.Value, repositoryName);
+        }
+#endif
 
+#if NET451
         public static object GetInstance(Type entityType, string repositoryName = null)
         {
             return GetInstance(entityType, DefaultConfigSection, repositoryName);
         }
+#elif NETSTANDARD
+        public static object GetInstance(Type entityType, IOptions<SharpRepositoryConfiguration> configuration, string repositoryName = null)
+        {
+            return GetInstance(entityType, configuration.Value, repositoryName);
+        }
+#endif
 
+#if NET451
         public static object GetInstance(Type entityType, Type keyType, string repositoryName = null)
         {
             return GetInstance(entityType, keyType, DefaultConfigSection, repositoryName);
         }
+#elif NETSTANDARD
+        public static object GetInstance(Type entityType, Type keyType, IOptions<SharpRepositoryConfiguration> configuration, string repositoryName = null)
+        {
+            return GetInstance(entityType, keyType, configuration.Value, repositoryName);
+        }
+#endif
 
+#if NET451
         public static IRepository<T, TKey> GetInstance<T, TKey>(string configSection, string repositoryName) where T : class, new()
         {
             return GetInstance<T, TKey>(GetConfiguration(configSection), repositoryName);
@@ -59,6 +91,7 @@ namespace SharpRepository.Repository
         {
             return GetInstance(entityType, keyType, GetConfiguration(configSection), repositoryName);
         }
+#endif
 
         public static IRepository<T, TKey> GetInstance<T, TKey>(ISharpRepositoryConfiguration configuration, string repositoryName=null) where T : class, new()
         {
@@ -108,17 +141,31 @@ namespace SharpRepository.Repository
         }
 
         // compound key methods
-
+#if NET451
         public static ICompoundKeyRepository<T, TKey, TKey2> GetInstance<T, TKey, TKey2>(string repositoryName = null) where T : class, new()
         {
             return GetInstance<T, TKey, TKey2>(DefaultConfigSection, repositoryName);
         }
+#elif NETSTANDARD
+        public static ICompoundKeyRepository<T, TKey, TKey2> GetInstance<T, TKey, TKey2>(IOptions<SharpRepositoryConfiguration> configuration, string repositoryName = null) where T : class, new()
+        {
+            return GetInstance<T, TKey, TKey2>(configuration.Value, repositoryName);
+        }
+#endif
 
+#if NET451
         public static object GetInstance(Type entityType, Type keyType, Type key2Type, string repositoryName = null)
         {
             return GetInstance(entityType, keyType, key2Type, DefaultConfigSection, repositoryName);
         }
+#elif NETSTANDARD
+        public static object GetInstance(Type entityType, Type keyType, Type key2Type, IOptions<SharpRepositoryConfiguration> configuration, string repositoryName = null)
+        {
+            return GetInstance(entityType, keyType, key2Type, configuration.Value, repositoryName);
+        }
+#endif
 
+#if NET451
         public static ICompoundKeyRepository<T, TKey, TKey2> GetInstance<T, TKey, TKey2>(string configSection, string repositoryName) where T : class, new()
         {
             return GetInstance<T, TKey, TKey2>(GetConfiguration(configSection), repositoryName);
@@ -128,6 +175,7 @@ namespace SharpRepository.Repository
         {
             return GetInstance(entityType, keyType, key2Type, GetConfiguration(configSection), repositoryName);
         }
+#endif
 
         public static ICompoundKeyRepository<T, TKey, TKey2> GetInstance<T, TKey, TKey2>(ISharpRepositoryConfiguration configuration, string repositoryName = null) where T : class, new()
         {
@@ -147,7 +195,7 @@ namespace SharpRepository.Repository
                 // if no specific repository is provided then check to see if the SharpRepositoryConfigurationAttribute is used
                 repositoryName = GetAttributeRepositoryName(entityType);
             }
-            #if NET451
+#if NET451
             var methods = typeof(ISharpRepositoryConfiguration).GetMethods();
 #elif NETSTANDARD
             var methods = typeof(ISharpRepositoryConfiguration).GetRuntimeMethods();
@@ -157,6 +205,7 @@ namespace SharpRepository.Repository
             return genericMethod.Invoke(configuration, new object[] { repositoryName });
         }
 
+#if NET451
         private static SharpRepositorySection GetConfiguration(string sectionName)
         {
             var section = ConfigurationManager.GetSection(sectionName) as SharpRepositorySection;
@@ -165,6 +214,7 @@ namespace SharpRepository.Repository
 
             return section;
         }
+#endif
 
         private static string GetAttributeRepositoryName(Type entityType)
         {
