@@ -31,7 +31,9 @@
         "System.Reflection": "4.1.0",
         "System.Security.Cryptography.Algorithms": "4.2.0",
         "System.Reflection.Extensions": "4.0.1",
-        "System.Runtime": "4.1.0"
+        "System.Runtime": "4.1.0",
+        "System.Reflection.TypeExtensions": "4.1.0",
+        "System.Linq.Queryable": "4.0.1"
       },
       "buildOptions": {
         "define": [ "NETSTANDARD" ] 

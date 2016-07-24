@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 
 namespace SharpRepository.Repository.Configuration
 {
@@ -10,7 +11,11 @@ namespace SharpRepository.Repository.Configuration
             if (type == null || interfaceType == null) return;
 
             if (Array.IndexOf<Type>(type.GetInterfaces(), interfaceType) == -1)
+#if NET451
                 throw new System.Configuration.ConfigurationErrorsException("The type " + type.AssemblyQualifiedName + " must implement " + interfaceType.AssemblyQualifiedName);
+#elif NETSTANDARD
+                throw new Exception("The type " + type.AssemblyQualifiedName + " must implement " + interfaceType.AssemblyQualifiedName);
+#endif
         }
 
         public static IRepository<T> GetInstance<T>(ISharpRepositoryConfiguration configuration, string repositoryName) where T : class, new()
