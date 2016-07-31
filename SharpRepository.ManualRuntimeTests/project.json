@@ -1,7 +1,13 @@
 ﻿{
   "version": "1.0.0-*",
   "buildOptions": {
-    "emitEntryPoint": true
+    "emitEntryPoint": true,
+    "copyToOutput": {
+      "include": [
+        "objectsharprepositorysettings.json",
+        "arraysharprepositorysettings.json"
+      ]
+    }
   },
 
   "dependencies": {
@@ -9,10 +15,18 @@
       "type": "platform",
       "version": "1.0.0"
     },
+    "Microsoft.Extensions.Configuration.Json": "1.0.0",
+    "Microsoft.Extensions.DependencyInjection": "1.0.0",
     "SharpRepository.InMemoryRepository": "1.0.0-*",
-    "SharpRepository.Repository": "1.0.0-*"
+    "SharpRepository.Repository": "1.0.0-*",
+    "Microsoft.Extensions.Configuration.Binder": "1.0.0"
   },
-
+  "publishOptions": {
+    "include": [
+      "objectsharprepositorysettings.json",
+      "arraysharprepositorysettings.json"
+    ]
+  },
   "frameworks": {
     "netcoreapp1.0": {
       "imports": "dnxcore50"
