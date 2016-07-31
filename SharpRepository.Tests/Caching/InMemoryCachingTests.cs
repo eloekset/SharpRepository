@@ -1,5 +1,9 @@
 ﻿using System.Linq;
+#if NET451
 using System.Runtime.Caching;
+#elif NETSTANDARD
+using Microsoft.Extensions.Caching.Memory;
+#endif
 using SharpRepository.InMemoryRepository;
 using NUnit.Framework;
 using SharpRepository.Repository.Caching;
@@ -16,11 +20,16 @@ namespace SharpRepository.Tests.Caching
         public void Setup()
         {
             // need to clear out the InMemory cache before each test is run so that each is independent and won't effect the next one
+#if NET451
             var cache = MemoryCache.Default;
             foreach (var item in cache)
             {
                 cache.Remove(item.Key);
             }
+#elif NETSTANDARD
+            var cache = new MemoryCache(null);
+            // TODO: How to clear an in-mem cache? There's no singleton.
+#endif
         }
 
         [TearDown]
