@@ -1,0 +1,52 @@
+﻿{
+  "sharpRepository": {
+    "defaultRepository": "inMemory",
+    "defaultCachingProvider": "inMemoryProvider",
+    "defaultCachingStrategy": "standard",
+    "repositories": {
+      "testRepo": {
+        "name": "inMemory",
+        "factory": "SharpRepository.InMemoryRepository.InMemoryConfigRepositoryFactory, SharpRepository.InMemoryRepository"
+      },
+       "efRepos": {
+        "factory": "SharpRepository.EfRepository.EfConfigRepositoryFactory, SharpRepository.EfRepository",
+        "connectionString": "EfConnectionString",
+        "dbContextType": "SharpRepository.Tests.TestObjects.TestObjectEntities, SharpRepository.Tests",
+        "cachingStrategy": "timeout"
+      },
+      "inMemoryNoCaching": {
+        "factory": "SharpRepository.InMemoryRepository.InMemoryConfigRepositoryFactory, SharpRepository.InMemoryRepository",
+        "cachingStrategy": "none"
+      }
+    },
+    "cachingProviders": {
+      "inMemoryProvider": {
+        "factory": "SharpRepository.Repository.Caching.InMemoryConfigCachingProviderFactory, SharpRepository.Repository"
+      }
+    },
+    "cachingStrategies": {
+      "standard": {
+        "factory": "SharpRepository.Repository.Caching.StandardConfigCachingStrategyFactory, SharpRepository.Repository",
+        "generational": true,
+        "writeThrough": false
+      },
+      "timeout": {
+        "factory": "SharpRepository.Repository.Caching.TimeoutConfigCachingStrategyFactory, SharpRepository.Repository",
+        "timeout": 200
+      },
+      "none": {
+        "factory": "SharpRepository.Repository.Caching.NoCachingConfigCachingStrategyFactory, SharpRepository.Repository"
+      }
+    }
+  },
+  "sharpRepository2": {
+    "ef": {
+      "factory": "SharpRepository.EfRepository.EfConfigRepositoryFactory, SharpRepository.EfRepository",
+      "connectionString": "EfConnectionString",
+      "dbContextType": "SharpRepository.Tests.TestObjects.TestObjectEntities, SharpRepository.Tests"
+    },
+    "inMem": {
+      "factory": "SharpRepository.InMemoryRepository.InMemoryConfigRepositoryFactory, SharpRepository.InMemoryRepository"
+    }
+  }
+}
