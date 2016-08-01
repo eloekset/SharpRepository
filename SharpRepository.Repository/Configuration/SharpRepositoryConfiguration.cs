@@ -6,7 +6,15 @@ namespace SharpRepository.Repository.Configuration
 {
     public class SharpRepositoryConfiguration : ISharpRepositoryConfiguration
     {
+#if NET451
         public IList<IRepositoryConfiguration> Repositories { get; private set; }
+#elif NETSTANDARD1_6
+        public RepositoriesCollection Repositories { get; private set; }
+        IList<IRepositoryConfiguration> ISharpRepositoryConfiguration.Repositories
+        {
+            get { return Repositories.ToRepositoryConfigurationList(); }
+        }
+#endif
         public string DefaultRepository { get; set; }
         public bool HasRepository
         {
@@ -85,12 +93,20 @@ namespace SharpRepository.Repository.Configuration
 
         public SharpRepositoryConfiguration()
         {
+#if NET451
             Repositories = new List<IRepositoryConfiguration>();
+#elif NETSTANDARD1_6
+            Repositories = new RepositoriesCollection();
+#endif
             CachingStrategies = new List<ICachingStrategyConfiguration>();
             CachingProviders = new List<ICachingProviderConfiguration>();
         }
 
+#if NET451
         public void AddRepository(IRepositoryConfiguration repositoryConfiguration)
+#elif NETSTANDARD1_6
+        public void AddRepository(RepositoryConfiguration repositoryConfiguration)
+#endif
         {
             Repositories.Add(repositoryConfiguration);
         }

@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+#if NETSTANDARD
+using System.Linq;
+using System.Reflection;
+#endif
 
 namespace SharpRepository.Repository.Configuration
 {
@@ -29,6 +33,25 @@ namespace SharpRepository.Repository.Configuration
                 _factory = value;
             }
         }
+#if NETSTANDARD
+        public string FactoryType
+        {
+            get
+            {
+                return _factory?.AssemblyQualifiedName;
+            }
+            set
+            {
+                string[] typeNameAndAssemblyName = value?.Split(',').Select(s => s.Trim()).ToArray();
+
+                if (typeNameAndAssemblyName.Length != 2)
+                    throw new Exception("The type name must specify full type name and assembly name");
+
+                var assembly = Assembly.Load(new AssemblyName(typeNameAndAssemblyName[1]));
+                Factory = assembly.GetType(typeNameAndAssemblyName[0]);
+            }
+        }
+#endif
         public string CachingStrategy { get; set; }
         public string CachingProvider { get; set; }
 

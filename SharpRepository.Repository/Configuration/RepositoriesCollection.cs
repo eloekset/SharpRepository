@@ -13,7 +13,7 @@ namespace SharpRepository.Repository.Configuration
     [ConfigurationCollection(typeof(RepositoryElement), AddItemName = "repository", CollectionType = ConfigurationElementCollectionType.BasicMap)]
     public class RepositoriesCollection : ConfigurationElementCollection
 #elif NETSTANDARD1_6
-    public class RepositoriesCollection : Collection<RepositoryElement>
+    public class RepositoriesCollection : Collection<RepositoryConfiguration>
 #endif
     {
 #if NET451
@@ -47,7 +47,12 @@ namespace SharpRepository.Repository.Configuration
 
         public IList<IRepositoryConfiguration> ToRepositoryConfigurationList()
         {
+#if NET451
             return this.Cast<RepositoryElement>().Cast<IRepositoryConfiguration>().ToList();
+#elif NETSTANDARD1_6
+            return this.Cast<IRepositoryConfiguration>().ToList();
+#endif
         }
+
     }
 }

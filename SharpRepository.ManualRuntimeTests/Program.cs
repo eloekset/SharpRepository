@@ -17,8 +17,8 @@ namespace SharpRepository.ManualRuntimeTests
 
         public static void Main(string[] args)
         {
-            LoadConfigurationObjectStyle();
-            //LoadConfigurationArrayStyle();
+            //LoadConfigurationObjectStyle();
+            LoadConfigurationArrayStyle();
         }
 
         private static void LoadConfigurationObjectStyle()
