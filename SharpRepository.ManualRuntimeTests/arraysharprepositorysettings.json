@@ -5,46 +5,43 @@
     "defaultCachingStrategy": "standard",
     "repositories": [
       {
-        "name": "testRepo"
-      },
-      {
         "name": "inMemory",
-        "factory": "SharpRepository.InMemoryRepository.InMemoryConfigRepositoryFactory, SharpRepository.InMemoryRepository"
+        "factoryType": "SharpRepository.InMemoryRepository.InMemoryConfigRepositoryFactory, SharpRepository.InMemoryRepository"
       },
       {
         "name": "efRepos",
-        "factory": "SharpRepository.EfRepository.EfConfigRepositoryFactory, SharpRepository.EfRepository",
+        "factoryType": "SharpRepository.EfRepository.EfConfigRepositoryFactory, SharpRepository.EfRepository",
         "connectionString": "EfConnectionString",
         "dbContextType": "SharpRepository.Tests.TestObjects.TestObjectEntities, SharpRepository.Tests",
         "cachingStrategy": "timeout"
       },
       {
         "name": "inMemoryNoCaching",
-        "factory": "SharpRepository.InMemoryRepository.InMemoryConfigRepositoryFactory, SharpRepository.InMemoryRepository",
+        "factoryType": "SharpRepository.InMemoryRepository.InMemoryConfigRepositoryFactory, SharpRepository.InMemoryRepository",
         "cachingStrategy": "none"
       }
     ],
     "cachingProviders": [
       {
         "name": "inMemoryProvider",
-        "factory": "SharpRepository.Repository.Caching.InMemoryConfigCachingProviderFactory, SharpRepository.Repository"
+        "factoryType": "SharpRepository.Repository.Caching.InMemoryConfigCachingProviderFactory, SharpRepository.Repository"
       }
     ],
     "cachingStrategies": [
       {
         "name": "standard",
-        "factory": "SharpRepository.Repository.Caching.StandardConfigCachingStrategyFactory, SharpRepository.Repository",
+        "factoryType": "SharpRepository.Repository.Caching.StandardConfigCachingStrategyFactory, SharpRepository.Repository",
         "generational": true,
         "writeThrough": false
       },
       {
         "name": "timeout",
-        "factory": "SharpRepository.Repository.Caching.TimeoutConfigCachingStrategyFactory, SharpRepository.Repository",
+        "factoryType": "SharpRepository.Repository.Caching.TimeoutConfigCachingStrategyFactory, SharpRepository.Repository",
         "timeout": 200
       },
       {
         "name": "none",
-        "factory": "SharpRepository.Repository.Caching.NoCachingConfigCachingStrategyFactory, SharpRepository.Repository"
+        "factoryType": "SharpRepository.Repository.Caching.NoCachingConfigCachingStrategyFactory, SharpRepository.Repository"
       }
     ]
   },
@@ -52,13 +49,13 @@
     "repositories": [
       {
         "name": "ef",
-        "factory": "SharpRepository.EfRepository.EfConfigRepositoryFactory, SharpRepository.EfRepository",
+        "factoryType": "SharpRepository.EfRepository.EfConfigRepositoryFactory, SharpRepository.EfRepository",
         "connectionString": "EfConnectionString",
         "dbContextType": "SharpRepository.Tests.TestObjects.TestObjectEntities, SharpRepository.Tests"
       },
       {
         "name": "inMem",
-        "factory": "SharpRepository.InMemoryRepository.InMemoryConfigRepositoryFactory, SharpRepository.InMemoryRepository"
+        "factoryType": "SharpRepository.InMemoryRepository.InMemoryConfigRepositoryFactory, SharpRepository.InMemoryRepository"
       }
     ]
   }

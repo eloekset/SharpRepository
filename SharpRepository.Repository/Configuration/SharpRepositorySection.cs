@@ -46,7 +46,7 @@ namespace SharpRepository.Repository.Configuration
             if (String.IsNullOrEmpty(repositoryName))
             {
                 // return the first one
-                foreach (RepositoryElement element in Repositories)
+                foreach (IRepositoryConfiguration element in Repositories)
                 {
                     repositoryConfiguration = element;
                     break;
@@ -57,7 +57,7 @@ namespace SharpRepository.Repository.Configuration
             
             // find the repository element by name
             // NOTE: i've intentionally left it as this loop instead of using LINQ because the .Cast<> slows down performance and I think this is just as readable
-            foreach (RepositoryElement element in Repositories)
+            foreach (IRepositoryConfiguration element in Repositories)
             {
                 if (element.Name == repositoryName)
                 {
