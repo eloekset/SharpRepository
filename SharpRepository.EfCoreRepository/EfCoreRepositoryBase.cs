@@ -93,7 +93,7 @@ namespace SharpRepository.EfCoreRepository
         {
             var query = DbSet.AsQueryable();
             // TODO: Investigate how to translate from path to expression
-            throw new NotImplementedException();
+            return query;
             //return fetchStrategy == null ? query : fetchStrategy.IncludePaths.Aggregate(query, (current, path) => current.Include(path));
         }
 
