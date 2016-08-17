@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "buildOptions": {
     "emitEntryPoint": true,
@@ -19,7 +19,10 @@
     "Microsoft.Extensions.DependencyInjection": "1.0.0",
     "SharpRepository.InMemoryRepository": "1.0.0-*",
     "SharpRepository.Repository": "1.0.0-*",
-    "Microsoft.Extensions.Configuration.Binder": "1.0.0"
+    "Microsoft.Extensions.Configuration.Binder": "1.0.0",
+    "SharpRepository.EfCoreRepository": "1.0.0-*",
+    "Microsoft.EntityFrameworkCore": "1.0.0",
+    "Microsoft.EntityFrameworkCore.Sqlite": "1.0.0"
   },
   "publishOptions": {
     "include": [

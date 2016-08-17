@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SharpRepository.ManualRuntimeTests.Infrastructure;
 using SharpRepository.ManualRuntimeTests.Model;
 using SharpRepository.Repository.Configuration;
 using System;
@@ -18,7 +19,8 @@ namespace SharpRepository.ManualRuntimeTests
         public static void Main(string[] args)
         {
             //LoadConfigurationObjectStyle();
-            LoadConfigurationArrayStyle();
+            //LoadConfigurationArrayStyle();
+            RunSimpleEfCoreTest();
         }
 
         private static void LoadConfigurationObjectStyle()
@@ -67,5 +69,23 @@ namespace SharpRepository.ManualRuntimeTests
 
             Console.ReadKey();
         }
-    }
+
+        private static void RunSimpleEfCoreTest()
+        {
+            using (TestDbContext dbContext = new TestDbContext())
+            {
+                dbContext.Database.EnsureCreated();
+                EfCoreRepository.EfCoreRepository<Employee> employeeRepo = new EfCoreRepository.EfCoreRepository<Employee>(dbContext);
+                employeeRepo.Add(new Employee { EmployeeId = 1, Name = "Adam" });
+                employeeRepo.Add(new Employee { EmployeeId = 2, Name = "Ashley" });
+
+                foreach (var employee in employeeRepo.GetAll())
+                {
+                    Console.WriteLine($"Employee {employee.EmployeeId} is called {employee.Name}.");
+                }
+
+                Console.ReadKey();
+            }
+        }
+    }   
 }
