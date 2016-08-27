@@ -63,19 +63,17 @@ namespace SharpRepository.EfCoreRepository
                         //  if it is then we need to copy the values to the attached value instead of changing the State to modified since it will throw a duplicate key exception
                         //  specifically: "An object with the same key already exists in the ObjectStateManager. The ObjectStateManager cannot track multiple objects with the same key."
 
-                        // TODO: Convert to Context.Set<T>().Find(key). Find not available until PR #5800 is merged into EFCore (https://github.com/aspnet/EntityFramework/pull/5800)
-                        var attachedEntity = Get(key);
+                        var attachedEntity = Context.Set<T>().Find(key);
                         if (attachedEntity != null)
                         {
-                            // TODO: No property CurrentValues in EFCore 1.0.0. Copy public properties using reflection?
-                            //Context.Entry(attachedEntity).CurrentValues.SetValues(entity);
-                            throw new NotImplementedException();
+                            Context.Entry(attachedEntity).CurrentValues.SetValues(entity);
+
                             return;
                         }
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // ignore and try the default behavior
             }
@@ -101,8 +99,7 @@ namespace SharpRepository.EfCoreRepository
         //  this also provides the EF5 first level caching out of the box
         protected override T GetQuery(TKey key, IFetchStrategy<T> fetchStrategy)
         {
-            // TODO: Convert to DbSet.Find(key). Find not available until PR #5800 is merged into EFCore (https://github.com/aspnet/EntityFramework/pull/5800)
-            return fetchStrategy == null ? Get(key) : base.GetQuery(key, fetchStrategy);
+            return fetchStrategy == null ? DbSet.Find(key) : base.GetQuery(key, fetchStrategy);
         }
 
         protected override PropertyInfo GetPrimaryKeyPropertyInfo()

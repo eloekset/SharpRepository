@@ -48,15 +48,10 @@ namespace SharpRepository.EfCoreRepository
                     // check to see if this item is already attached
                     //  if it is then we need to copy the values to the attached value instead of changing the State to modified since it will throw a duplicate key exception
                     //  specifically: "An object with the same key already exists in the ObjectStateManager. The ObjectStateManager cannot track multiple objects with the same key."
-                    // TODO: EFCore doesn't have a Find method on DbSet<T> yet.
-                    //var attachedEntity = Context.Set<T>().Find(keys);
-                    throw new NotImplementedException();
-                    T attachedEntity = null;
+                    var attachedEntity = Context.Set<T>().Find(keys);
                     if (attachedEntity != null)
                     {
-                        // TODO: EFCore doesn't have EntityEntry.CurrentValues.
-                        //Context.Entry(attachedEntity).CurrentValues.SetValues(entity);
-                        throw new NotImplementedException();
+                        Context.Entry(attachedEntity).CurrentValues.SetValues(entity);
 
                         return;
                     }
@@ -83,9 +78,7 @@ namespace SharpRepository.EfCoreRepository
         // we override the implementation fro LinqBaseRepository becausee this is built in and doesn't need to find the key column and do dynamic expressions, etc.
         protected override T GetQuery(params object[] keys)
         {
-            // TODO: EFCore doesn't provide a Find method on DbSet<T> yet.
-            throw new NotImplementedException();
-            //return DbSet.Find(keys);
+            return DbSet.Find(keys);
         }
 
         public override void Dispose()
@@ -145,15 +138,10 @@ namespace SharpRepository.EfCoreRepository
                     // check to see if this item is already attached
                     //  if it is then we need to copy the values to the attached value instead of changing the State to modified since it will throw a duplicate key exception
                     //  specifically: "An object with the same key already exists in the ObjectStateManager. The ObjectStateManager cannot track multiple objects with the same key."
-                    throw new NotImplementedException();
-                    // TODO: EFCore doesn't provide a Find method on DbSet<T> yet.
-                    //var attachedEntity = Context.Set<T>().Find(key, key2);
-                    T attachedEntity = null;
+                    var attachedEntity = Context.Set<T>().Find(key, key2);
                     if (attachedEntity != null)
                     {
-                        // TODO: EntityEntry doesn't have CurrentValues in EFCore yet.
-                        //Context.Entry(attachedEntity).CurrentValues.SetValues(entity);
-                        throw new NotImplementedException();
+                        Context.Entry(attachedEntity).CurrentValues.SetValues(entity);
 
                         return;
                     }
@@ -180,9 +168,7 @@ namespace SharpRepository.EfCoreRepository
         // we override the implementation fro LinqBaseRepository becausee this is built in and doesn't need to find the key column and do dynamic expressions, etc.
         protected override T GetQuery(TKey key, TKey2 key2)
         {
-            // TODO: EFCore doesn't provide a Find method on DbSet yet.
-            throw new NotImplementedException();
-            //return DbSet.Find(key, key2);
+            return DbSet.Find(key, key2);
         }
 
         public override void Dispose()
@@ -244,13 +230,10 @@ namespace SharpRepository.EfCoreRepository
                     //  if it is then we need to copy the values to the attached value instead of changing the State to modified since it will throw a duplicate key exception
                     //  specifically: "An object with the same key already exists in the ObjectStateManager. The ObjectStateManager cannot track multiple objects with the same key."
 
-                    // TODO: Convert to Context.Set<T>().Find(key, key2, key3). Find not available until PR #5800 is merged into EFCore (https://github.com/aspnet/EntityFramework/pull/5800)
-                    var attachedEntity = Get(key, key2, key3);
+                    var attachedEntity = Context.Set<T>().Find(key, key2, key3);
                     if (attachedEntity != null)
                     {
-                        // TODO: No property CurrentValues in EFCore 1.0.0. Copy public properties using reflection?
-                        //Context.Entry(attachedEntity).CurrentValues.SetValues(entity);
-                        throw new NotImplementedException();
+                        Context.Entry(attachedEntity).CurrentValues.SetValues(entity);
 
                         return;
                     }
