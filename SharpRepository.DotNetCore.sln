@@ -9,6 +9,11 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SharpRepository.InMemoryRep
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SharpRepository.EfCoreRepository", "SharpRepository.EfCoreRepository\SharpRepository.EfCoreRepository.xproj", "{9FFBFCA3-D359-46EF-8088-CAE869DCDE51}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7F069F56-AA30-4311-9CBB-662F357BC083}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet.config = NuGet.config
+	EndProjectSection
+EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SharpRepository.ManualRuntimeTests", "SharpRepository.ManualRuntimeTests\SharpRepository.ManualRuntimeTests.xproj", "{8A7BF1DB-939E-4198-BE31-85F71F45D5E6}"
 EndProject
 Global

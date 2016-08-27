@@ -28,8 +28,7 @@ namespace SharpRepository.EfCoreRepository
 
         public override ICompoundKeyRepository<T, TKey, TKey2> GetInstance<T, TKey, TKey2>()
         {
-            //return new EfCoreRepository<T, TKey, TKey2>(GetDbContext());
-            throw new NotImplementedException();
+            return new EfCoreRepository<T, TKey, TKey2>(GetDbContext());
         }
 
         private DbContext GetDbContext()
