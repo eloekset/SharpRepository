@@ -679,7 +679,11 @@ namespace SharpRepository.Repository
 
         public IEnumerable<T> GetAll(IQueryOptions<T> queryOptions, IFetchStrategy<T> fetchStrategy)
         {
-            throw new NotImplementedException();
+            return _queryManager.ExecuteGetAll(
+                () => GetAllQuery(queryOptions).ToList(),
+                null,
+                queryOptions
+                );
         }
 
         public IEnumerable<T> GetAll(IQueryOptions<T> queryOptions, params string[] includePaths)

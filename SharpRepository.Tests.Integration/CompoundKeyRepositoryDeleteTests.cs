@@ -17,12 +17,12 @@ namespace SharpRepository.Tests.Integration
             var item = new User {Username = "Test User", Age = 11, FullName = "Test User - 11"};
             repository.Add(item);
 
-            //var result = repository.Get(contact.ContactId);
-            //result.ShouldNotBeNull();
+            var result = repository.Get(item.Username, item.Age);
+            result.ShouldNotBeNull();
 
             repository.Delete(item);
-            //result = repository.Get(contact.ContactId);
-            //result.ShouldBeNull();
+            result = repository.Get(item.Username, item.Age);
+            result.ShouldBeNull();
         }
 
         [ExecuteForAllCompoundKeyRepositories]
