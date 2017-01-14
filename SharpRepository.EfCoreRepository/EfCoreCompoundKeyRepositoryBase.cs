@@ -260,8 +260,7 @@ namespace SharpRepository.EfCoreRepository
         // we override the implementation fro LinqBaseRepository becausee this is built in and doesn't need to find the key column and do dynamic expressions, etc.
         protected override T GetQuery(TKey key, TKey2 key2, TKey3 key3)
         {
-            // TODO: Convert to DbSet.Find(key, key2, key3). Find not available until PR #5800 is merged into EFCore (https://github.com/aspnet/EntityFramework/pull/5800)
-            return Get(key, key2, key3);
+            return DbSet.Find(key, key2, key3);
         }
 
         public override void Dispose()
