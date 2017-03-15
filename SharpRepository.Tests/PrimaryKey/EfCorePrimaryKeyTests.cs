@@ -1,5 +1,5 @@
-﻿#if !NETSTANDARD1_6
-using System.Data.Entity;
+﻿#if NETSTANDARD1_6
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using NUnit.Framework;
 using SharpRepository.Repository.Caching;
@@ -9,12 +9,13 @@ using Should;
 namespace SharpRepository.Tests.PrimaryKey
 {
     [TestFixture]
-    public class Ef5PrimaryKeyTests
+    public class EfCorePrimaryKeyTests
     {
         [Test]
         public void Should_Return_KeyInt2_Property()
         {
-            var repos = new TestEfRepository<ObjectKeys, int>(new DbContext("test"));
+            var optionsBuilder = new DbContextOptionsBuilder();
+            var repos = new TestEfRepository<ObjectKeys, int>(new DbContext(optionsBuilder.Options));
             var propInfo = repos.TestGetPrimaryKeyPropertyInfo();
 
             propInfo.PropertyType.ShouldEqual(typeof(int));
@@ -24,7 +25,8 @@ namespace SharpRepository.Tests.PrimaryKey
         [Test]
         public void Should_Return_KeyInt1_2_3_Property()
         {
-            var repos = new TestTripleKeyEfRepository<TripleObjectKeys, int, int, int>(new DbContext("test"));
+            var optionsBuilder = new DbContextOptionsBuilder();
+            var repos = new TestTripleKeyEfRepository<TripleObjectKeys, int, int, int>(new DbContext(optionsBuilder.Options));
             var propInfo = repos.TestGetPrimaryKeyPropertyInfo();
 
             propInfo[0].PropertyType.ShouldEqual(typeof(int));
@@ -36,7 +38,7 @@ namespace SharpRepository.Tests.PrimaryKey
         }
     }
 
-    internal class TestEfRepository<T, TKey> : EfRepository.EfRepository<T, TKey> where T : class, new()
+    internal class TestEfRepository<T, TKey> : EfCoreRepository.EfCoreRepository<T, TKey> where T : class, new()
     {
         public TestEfRepository(DbContext dbContext, ICachingStrategy<T, TKey> cachingStrategy = null) : base(dbContext, cachingStrategy)
         {
@@ -48,7 +50,7 @@ namespace SharpRepository.Tests.PrimaryKey
         }
     }
 
-    internal class TestTripleKeyEfRepository<T, TKey, TKey2, TKey3> : EfRepository.EfRepository<T, TKey, TKey2, TKey3> where T : class, new()
+    internal class TestTripleKeyEfRepository<T, TKey, TKey2, TKey3> : EfCoreRepository.EfCoreRepository<T, TKey, TKey2, TKey3> where T : class, new()
     {
         public TestTripleKeyEfRepository(DbContext dbContext, ICompoundKeyCachingStrategy<T, TKey, TKey2, TKey3> cachingStrategy = null) : base(dbContext, cachingStrategy)
         {

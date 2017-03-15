@@ -1,6 +1,10 @@
 ﻿using System;
 using NUnit.Framework;
+#if NETSTANDARD1_6
+using SharpRepository.EfCoreRepository;
+#else
 using SharpRepository.EfRepository;
+#endif
 using SharpRepository.Repository.Caching;
 using SharpRepository.Repository.Configuration;
 using SharpRepository.Tests.TestObjects;
