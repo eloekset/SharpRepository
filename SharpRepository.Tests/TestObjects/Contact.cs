@@ -1,9 +1,13 @@
 using System.Collections.Generic;
+#if !NETSTANDARD1_6
 using SharpRepository.Logging;
+#endif
 
 namespace SharpRepository.Tests.TestObjects
 {
+#if !NETSTANDARD1_6
     [RepositoryLogging]
+#endif
     public class Contact
     {
         public int ContactId { get; set; }

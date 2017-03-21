@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿#if !NETSTANDARD1_6
+using System.Reflection;
 using NUnit.Framework;
 using SharpRepository.Tests.TestObjects.PrimaryKeys;
 using Should;
@@ -27,3 +28,4 @@ namespace SharpRepository.Tests.PrimaryKey
         }
     }
 }
+#endif

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+#if !NETSTANDARD1_6
 using MongoDB.Bson.Serialization.Attributes;
+#endif
 using System.ComponentModel.DataAnnotations.Schema;
 using SharpRepository.Repository;
 

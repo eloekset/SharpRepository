@@ -1,4 +1,5 @@
 ﻿using System;
+#if !NETSTANDARD1_6
 using Microsoft.WindowsAzure.Storage.Table;
 using NUnit.Framework;
 using SharpRepository.AzureBlobRepository;
@@ -38,3 +39,4 @@ namespace SharpRepository.Tests.Spikes
         public string Name { get; set; }
     }
 }
+#endif

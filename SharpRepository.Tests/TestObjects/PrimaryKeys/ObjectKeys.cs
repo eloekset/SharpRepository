@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+#if !NETSTANDARD1_6
 using MongoDB.Bson.Serialization.Attributes;
+#endif
 
 namespace SharpRepository.Tests.TestObjects.PrimaryKeys
 {
@@ -8,7 +10,11 @@ namespace SharpRepository.Tests.TestObjects.PrimaryKeys
     {
         public int Id { get; set; }
 
+#if NETSTANDARD1_6
+        [Key]
+#else
         [BsonId]
+#endif
         public int KeyInt1 { get; set; }
 
         [Key]

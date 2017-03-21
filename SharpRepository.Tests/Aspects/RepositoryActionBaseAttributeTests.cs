@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using NUnit.Framework;
+#if !NETSTANDARD1_6
 using ServiceStack.Common.Extensions;
 using SharpRepository.Repository.Aspects;
+#endif
 using SharpRepository.Tests.PrimaryKey;
 using SharpRepository.Tests.TestObjects;
 
