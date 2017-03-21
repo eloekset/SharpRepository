@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+#if !NETSTANDARD1_6
 using System.Runtime.Caching;
+#endif
 using NUnit.Framework;
 using SharpRepository.Repository.Caching;
 using SharpRepository.Repository.Queries;
@@ -17,12 +19,14 @@ namespace SharpRepository.Tests.Caching
         [SetUp]
         public void Setup()
         {
+#if !NETSTANDARD1_6
             // need to clear out the InMemory cache before each test is run so that each is independent and won't effect the next one
             var cache = MemoryCache.Default;
             foreach (var item in cache)
             {
                 cache.Remove(item.Key);
             }
+#endif
 
             QueryManager = new QueryManager<Contact, int>(new StandardCachingStrategy<Contact, int>()
                                                    {
@@ -166,7 +170,7 @@ namespace SharpRepository.Tests.Caching
         }
 
 
-        #region fake calls
+#region fake calls
 
         public Contact FakeGet()
         {
@@ -178,6 +182,6 @@ namespace SharpRepository.Tests.Caching
             return new List<Contact>();
         }
 
-        #endregion
+#endregion
     }
 }
