@@ -19,20 +19,17 @@ namespace SharpRepository.Tests.Caching
         [SetUp]
         public void Setup()
         {
-#if !NETSTANDARD1_6
-            // need to clear out the InMemory cache before each test is run so that each is independent and won't effect the next one
-            var cache = MemoryCache.Default;
-            foreach (var item in cache)
+            using (var cachingProvider = new InMemoryCachingProvider())
             {
-                cache.Remove(item.Key);
+                // TODO: Cache is cleared by calling dispose on the caching provider
+                // See comment in InMemoryCachingProvider.Dispose().
             }
-#endif
 
             QueryManager = new QueryManager<Contact, int>(new StandardCachingStrategy<Contact, int>()
-                                                   {
-                                                       CachePrefix =
-                                                           "#RepoStandardCache"
-                                                   });
+            {
+                CachePrefix =
+                                                            "#RepoStandardCache"
+            });
         }
 
         [TearDown]

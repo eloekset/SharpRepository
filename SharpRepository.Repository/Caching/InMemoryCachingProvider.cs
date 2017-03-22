@@ -10,9 +10,25 @@ namespace SharpRepository.Repository.Caching
     /// </summary>
     public class InMemoryCachingProvider : ICachingProvider
     {
+        private static IMemoryCache _cache;
+        private static readonly object _singletonLock = new object();
         private static IMemoryCache Cache
         {
-            get { return new MemoryCache(new MemoryCacheOptions()); }
+            get
+            {
+                if (_cache == null)
+                {
+                    lock(_singletonLock)
+                    {
+                        if (_cache == null)
+                        {
+                            _cache = new MemoryCache(new MemoryCacheOptions());
+                        }
+                    }
+                }
+
+                return _cache;
+            }
         }
 
         private static readonly object LockObject = new object();
@@ -89,7 +105,14 @@ namespace SharpRepository.Repository.Caching
 
         public void Dispose()
         {
-            // no need to do anything
+            // TODO: Investigate if this is desired behavior.
+            // Users will have to dispose the caching provider to clear the cache,
+            // like done in QueryManagerTests.Setup(). It's probably a breaking change?
+            if (_cache != null)
+            {
+                _cache.Dispose();
+                _cache = null;
+            }
         }
     }
 }
