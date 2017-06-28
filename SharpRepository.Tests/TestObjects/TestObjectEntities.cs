@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD1_6
+﻿#if NETCOREAPP1_1
 using Microsoft.EntityFrameworkCore;
 #else
 using System.Data.Entity;
@@ -8,7 +8,7 @@ namespace SharpRepository.Tests.TestObjects
 {
     public class TestObjectEntities : DbContext
     {
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
         public TestObjectEntities(DbContextOptions options) : base(options)
         {
 

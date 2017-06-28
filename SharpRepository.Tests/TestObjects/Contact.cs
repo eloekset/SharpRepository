@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-#if !NETSTANDARD1_6
+#if !NETCOREAPP1_1
 using SharpRepository.Logging;
 #endif
 
 namespace SharpRepository.Tests.TestObjects
 {
-#if !NETSTANDARD1_6
+#if !NETCOREAPP1_1
     [RepositoryLogging]
 #endif
     public class Contact

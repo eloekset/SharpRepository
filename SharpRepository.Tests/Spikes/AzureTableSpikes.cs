@@ -1,4 +1,4 @@
-﻿#if !NETSTANDARD1_6
+﻿#if !NETCOREAPP1_1
 using Microsoft.WindowsAzure.Storage.Table;
 using NUnit.Framework;
 using SharpRepository.AzureTableRepository;

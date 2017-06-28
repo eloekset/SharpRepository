@@ -1,4 +1,4 @@
-﻿#if !NETSTANDARD1_6
+﻿#if !NETCOREAPP1_1
 using System.Reflection;
 using NUnit.Framework;
 using SharpRepository.Tests.TestObjects.PrimaryKeys;

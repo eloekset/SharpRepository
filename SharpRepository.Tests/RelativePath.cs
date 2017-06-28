@@ -10,7 +10,7 @@ namespace SharpRepository.Tests
 
         public RelativeDirectory()
         {
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
             _dirInfo = new DirectoryInfo(AppContext.BaseDirectory);
 #else
             _dirInfo = new DirectoryInfo(Environment.CurrentDirectory);

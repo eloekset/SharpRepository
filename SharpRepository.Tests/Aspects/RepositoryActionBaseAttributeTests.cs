@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-#if !NETSTANDARD1_6
+#if !NETCOREAPP1_1
 using ServiceStack.Common.Extensions;
 using SharpRepository.Repository.Aspects;
 #endif

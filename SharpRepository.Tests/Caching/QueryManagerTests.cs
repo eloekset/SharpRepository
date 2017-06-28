@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-#if !NETSTANDARD1_6
+#if !NETCOREAPP1_1
 using System.Runtime.Caching;
 #endif
 using NUnit.Framework;

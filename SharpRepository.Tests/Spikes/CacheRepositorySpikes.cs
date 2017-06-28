@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-#if !NETSTANDARD1_6
+#if !NETCOREAPP1_1
 using SharpRepository.CacheRepository;
 #endif
 using SharpRepository.Repository;
@@ -25,7 +25,7 @@ namespace SharpRepository.Tests.Spikes
             var sharpRepositoryConfiguration = new SharpRepositoryConfiguration();
             sharpRepositoryConfiguration.AddCachingStrategy(new StandardCachingStrategyConfiguration("standard"));
             sharpRepositoryConfiguration.AddCachingProvider(new InMemoryCachingProviderConfiguration("inmemory"));
-#if !NETSTANDARD1_6
+#if !NETCOREAPP1_1
             sharpRepositoryConfiguration.AddRepository(new CacheRepositoryConfiguration("textFilter", "TextFilter", "standard", "inmemory"));
 #endif
 

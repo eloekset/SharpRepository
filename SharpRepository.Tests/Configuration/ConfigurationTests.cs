@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
 using SharpRepository.EfCoreRepository;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Xml;
@@ -20,7 +20,7 @@ namespace SharpRepository.Tests.Configuration
     [TestFixture]
     public class ConfigurationTests
     {
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
         IConfigurationRoot Configuration;
         ISharpRepositoryConfiguration config;
 
@@ -37,7 +37,7 @@ namespace SharpRepository.Tests.Configuration
         [Test]
         public void InMemoryConfigurationNoParametersNoKeyTypes()
         {
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
             var repos = RepositoryFactory.GetInstance<Contact>(config);
 #else
             var repos = RepositoryFactory.GetInstance<Contact>();
@@ -52,7 +52,7 @@ namespace SharpRepository.Tests.Configuration
         [Test]
         public void InMemoryConfigurationNoParameters()
         {
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
             var repos = RepositoryFactory.GetInstance<Contact, string>(config);
 #else
             var repos = RepositoryFactory.GetInstance<Contact, string>();
@@ -67,13 +67,13 @@ namespace SharpRepository.Tests.Configuration
         [Test]
         public void LoadConfigurationRepositoryByName()
         {
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
             var repos = RepositoryFactory.GetInstance<Contact, string>(config, "efRepos");
 #else
             var repos = RepositoryFactory.GetInstance<Contact, string>("efRepos");
 #endif
 
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
             if (!(repos is EfCoreRepository<Contact, string>))
 #else
             if (!(repos is EfRepository<Contact, string>))
@@ -84,7 +84,7 @@ namespace SharpRepository.Tests.Configuration
 
         }
 
-#if !NETSTANDARD1_6
+#if !NETCOREAPP1_1
         [Test]
         public void LoadConfigurationRepositoryBySectionName()
         {
@@ -97,7 +97,7 @@ namespace SharpRepository.Tests.Configuration
         }
 #endif
 
-#if !NETSTANDARD1_6
+#if !NETCOREAPP1_1
         [Test]
         public void LoadConfigurationRepositoryBySectionAndRepositoryName()
         {
@@ -113,7 +113,7 @@ namespace SharpRepository.Tests.Configuration
         [Test]
         public void LoadRepositoryDefaultStrategyAndOverrideNone()
         {
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
             var repos = RepositoryFactory.GetInstance<Contact, string>(config);
 #else
             var repos = RepositoryFactory.GetInstance<Contact, string>();
@@ -124,7 +124,7 @@ namespace SharpRepository.Tests.Configuration
                 throw new Exception("Not standard caching default");
             }
 
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
             repos = RepositoryFactory.GetInstance<Contact, string>(config, "inMemoryNoCaching");
 #else
             repos = RepositoryFactory.GetInstance<Contact, string>("inMemoryNoCaching");
@@ -159,14 +159,14 @@ namespace SharpRepository.Tests.Configuration
         public void LoadEfRepositoryFromConfigurationObject()
         {
             var config = new SharpRepositoryConfiguration();
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
             config.AddRepository(new EfCoreRepositoryConfiguration("default", "DefaultConnection", typeof(TestObjectEntities)));
 #else
             config.AddRepository(new EfRepositoryConfiguration("default", "DefaultConnection", typeof(TestObjectEntities)));
 #endif
             var repos = RepositoryFactory.GetInstance<Contact, string>(config);
 
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
             if (!(repos is EfCoreRepository<Contact, string>))
 #else
             if (!(repos is EfRepository<Contact, string>))
@@ -186,7 +186,7 @@ namespace SharpRepository.Tests.Configuration
         {
             var config = new SharpRepositoryConfiguration();
             config.AddRepository(new InMemoryRepositoryConfiguration("inMemory", "timeout"));
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
             config.AddRepository(new EfCoreRepositoryConfiguration("ef5", "DefaultConnection", typeof(TestObjectEntities), "standard", "inMemoryProvider"));
 #else
             config.AddRepository(new EfRepositoryConfiguration("ef5", "DefaultConnection", typeof(TestObjectEntities), "standard", "inMemoryProvider"));
@@ -201,7 +201,7 @@ namespace SharpRepository.Tests.Configuration
 
             var repos = RepositoryFactory.GetInstance<Contact, string>(config);
 
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
             if (!(repos is EfCoreRepository<Contact, string>))
 #else
             if (!(repos is EfRepository<Contact, string>))
@@ -219,7 +219,7 @@ namespace SharpRepository.Tests.Configuration
         [Test]
         public void TestFactoryOverloadMethod()
         {
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
             var repos = RepositoryFactory.GetInstance(typeof(Contact), typeof(string), config);
 #else
             var repos = RepositoryFactory.GetInstance(typeof (Contact), typeof (string));
@@ -234,7 +234,7 @@ namespace SharpRepository.Tests.Configuration
         [Test]
         public void TestFactoryOverloadMethodForCompoundKey()
         {
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
             var repos = RepositoryFactory.GetInstance(typeof(Contact), typeof(string), typeof(string), config);
 #else
             var repos = RepositoryFactory.GetInstance(typeof (Contact), typeof (string), typeof(string));
@@ -249,7 +249,7 @@ namespace SharpRepository.Tests.Configuration
         [Test]
         public void TestFactoryOverloadMethodForTripleCompoundKey()
         {
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
             var repos = RepositoryFactory.GetInstance(typeof(Contact), typeof(string), typeof(string), typeof(string), config);
 #else
             var repos = RepositoryFactory.GetInstance(typeof(Contact), typeof(string), typeof(string), typeof(string));
@@ -264,7 +264,7 @@ namespace SharpRepository.Tests.Configuration
         [Test]
         public void TestFactoryOverloadMethodForNoGenericsCompoundKey()
         {
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
             var repos = RepositoryFactory.GetCompoundKeyInstance(typeof(Contact), config);
 #else
             var repos = RepositoryFactory.GetCompoundKeyInstance(typeof(Contact));

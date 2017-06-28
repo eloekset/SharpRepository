@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-#if NETSTANDARD1_6
+#if NETCOREAPP1_1
 using Microsoft.Extensions.Caching.Memory;
 #else
 using System.Runtime.Caching;
@@ -19,7 +19,7 @@ namespace SharpRepository.Tests.Caching
         [SetUp]
         public void Setup()
         {
-#if !NETSTANDARD1_6
+#if !NETCOREAPP1_1
             // need to clear out the InMemory cache before each test is run so that each is independent and won't effect the next one
             var cache = MemoryCache.Default;
             foreach (var item in cache)
